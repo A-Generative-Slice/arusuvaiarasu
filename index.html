@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
   <title>Arusuvai Arasu Caterers | Instant Banquet Quote & Multi-Hall Inventory Portal</title>
   <meta name="description" content="Official Arusuvai Arasu 60-second multi-session Muhurtham quote engine and Chennai multi-hall catering inventory dispatch manager.">
+  <meta name="theme-color" content="#6e1017">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,9 +27,8 @@
   <div class="top-strip">
     <div class="top-strip-inner">
       <span>★ DR. ARUSUVAI NATARAJA IYER LEGACY</span> &nbsp;•&nbsp; 
-      Entitled by Former President of India V.V. Giri &nbsp;•&nbsp; 
-      <span>75,000+ Grand Weddings Since 1952</span> &nbsp;•&nbsp;
-      Serving 1,00,000+ Guests in a Single Day
+      Entitled by Former President V.V. Giri &nbsp;•&nbsp; 
+      <span>75,000+ Grand Weddings</span>
     </div>
   </div>
 
@@ -39,29 +39,29 @@
         <img src="assets/images/arasu-main.png" alt="Arusuvai Arasu Official Logo" class="brand-main-logo">
         <div class="brand-title-wrap">
           <h1>ARUSUVAI ARASU</h1>
-          <div class="brand-subtitle">Pioneers in Pure Vegetarian Banquets & Event Planning</div>
+          <div class="brand-subtitle">Pioneers in Pure Veg Banquets Since 1952</div>
         </div>
       </div>
 
-      <!-- Navigation Tabs -->
+      <div class="header-actions">
+        <div class="office-tag">
+          <i class="fa-solid fa-location-dot"></i> West Mambalam
+        </div>
+      </div>
+
+      <!-- Navigation Tabs (Sticky & Touch-friendly) -->
       <nav class="nav-tabs-wrapper">
         <button class="nav-tab active" id="tab-btn-quote" onclick="switchView('quote')">
-          <i class="fa-solid fa-bolt"></i> 60s Banquet Quote
+          <i class="fa-solid fa-bolt"></i> 60s Quote
         </button>
         <button class="nav-tab" id="tab-btn-inventory" onclick="switchView('inventory')">
-          <i class="fa-solid fa-hotel"></i> Multi-Hall Inventory & Slots
+          <i class="fa-solid fa-hotel"></i> Multi-Hall Slots
           <span class="pulse-badge">Live</span>
         </button>
         <button class="nav-tab" id="tab-btn-patrons" onclick="switchView('patrons')">
           <i class="fa-solid fa-award"></i> VIP Patrons
         </button>
       </nav>
-
-      <div class="header-actions">
-        <div class="office-tag">
-          <i class="fa-solid fa-location-dot"></i> West Mambalam, Chennai
-        </div>
-      </div>
     </div>
   </header>
 
@@ -91,7 +91,7 @@
           </div>
           <div class="stat-pill">
             <span class="num">60.2k</span>
-            <span class="label">Instagram Community</span>
+            <span class="label">Instagram Fans</span>
           </div>
         </div>
       </div>
@@ -139,12 +139,11 @@
 
         <!-- Step 3: Multi-Session Muhurtham Menu Builder -->
         <div class="builder-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
-            <h3 class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-calendar-check"></i> 3. Select Wedding Sessions & Guest Count</h3>
-            <span style="font-size:0.8rem; color:#888;">Select sessions to include in quotation</span>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 8px;">
+            <h3 class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-calendar-check"></i> 3. Select Sessions & Guests</h3>
           </div>
-          <p style="font-size: 0.84rem; color: #777; margin-bottom: 16px;">
-            Check or uncheck wedding sessions and customize expected guest counts. Menus automatically adapt with authentic Kumbakonam delicacies based on your package tier.
+          <p style="font-size: 0.82rem; color: #777; margin-bottom: 14px;">
+            Toggle sessions and use the <strong>[+]</strong> / <strong>[-]</strong> buttons to adjust guests. Menus adapt automatically.
           </p>
           <div class="sessions-list" id="sessions-container">
             <!-- Populated dynamically via app.js -->
@@ -161,7 +160,7 @@
 
       </div>
 
-      <!-- Right Column: Live Sticky Estimate & Actions -->
+      <!-- Right Column: Desktop Live Sticky Estimate -->
       <aside class="sidebar-column">
         <div class="quote-summary-card">
           <div class="quote-summary-header">
@@ -212,11 +211,28 @@
     </main>
   </div>
 
+  <!-- Mobile Floating Action Bar (Sticky at bottom on phones) -->
+  <div class="mobile-floating-bar" id="mobile-floating-bar">
+    <div class="mobile-floating-info">
+      <span class="mobile-label">Grand Total (incl GST)</span>
+      <span class="mobile-total-price" id="mobile-grand-total">₹0</span>
+      <span class="mobile-advance-pill" id="mobile-advance-tag">Adv (25%): ₹0</span>
+    </div>
+    <div class="mobile-floating-actions">
+      <button class="btn-mobile-pdf" onclick="generatePDF()">
+        <i class="fa-solid fa-file-pdf"></i> PDF Quote
+      </button>
+      <button class="btn-mobile-wa" onclick="shareWhatsApp()" title="Share on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+      </button>
+    </div>
+  </div>
+
   <!-- ========================================================================= -->
   <!-- VIEW 2: MULTI-HALL INVENTORY & MUHURTHAM DATE SLOTS                      -->
   <!-- ========================================================================= -->
   <div id="view-inventory" class="view-panel">
-    <section class="hero-banner" style="padding: 24px 20px;">
+    <section class="hero-banner" style="padding: 22px 16px;">
       <div class="hero-content">
         <div class="hero-text">
           <div class="hero-badge">
@@ -224,11 +240,6 @@
           </div>
           <h2>Chennai Multi-Hall <span>Inventory & Slot</span> Manager</h2>
           <p>Prevent double bookings during peak muhurthams. Track hall reservations, kitchen team deployments, brass vessel sets, and raw material dispatch across Chennai's premier mandapams.</p>
-        </div>
-        <div class="inventory-quick-actions">
-          <button class="btn-gold" onclick="openNewBookingModal()">
-            <i class="fa-solid fa-plus"></i> Reserve New Hall Slot
-          </button>
         </div>
       </div>
     </section>
@@ -249,7 +260,7 @@
         <div class="inventory-status-legend">
           <span class="legend-item"><span class="dot green"></span> Available</span>
           <span class="legend-item"><span class="dot yellow"></span> Tentative Inquiry</span>
-          <span class="legend-item"><span class="dot red"></span> Advance Locked (Confirmed)</span>
+          <span class="legend-item"><span class="dot red"></span> Advance Locked</span>
         </div>
       </div>
 
@@ -259,9 +270,9 @@
       </div>
 
       <!-- Kitchen & Equipment Dispatch Summary -->
-      <div class="builder-card" style="margin-top: 30px;">
+      <div class="builder-card" style="margin-top: 24px;">
         <h3 class="section-title"><i class="fa-solid fa-truck-ramp-box"></i> Live Equipment & Catering Team Dispatch Tracker</h3>
-        <p style="font-size: 0.85rem; color: #666; margin-bottom: 18px;">Real-time inventory deployment from West Mambalam central kitchen warehouse to booked wedding mandapams.</p>
+        <p style="font-size: 0.82rem; color: #666; margin-bottom: 16px;">Real-time inventory deployment from West Mambalam central kitchen warehouse to booked wedding mandapams.</p>
 
         <div class="dispatch-cards-grid">
           <div class="dispatch-card">
@@ -280,18 +291,18 @@
           <div class="dispatch-card">
             <div class="dispatch-header">
               <span class="dispatch-title"><i class="fa-solid fa-bowl-food"></i> Traditional Brass Urn Sets</span>
-              <span class="badge-active">42 / 50 Sets Dispatched</span>
+              <span class="badge-active">42 / 50 Dispatched</span>
             </div>
             <ul class="dispatch-list">
               <li><strong>Kumbakonam Heavy Brass Urulis:</strong> 18 at Radisson Blu, 14 at MRC Hall</li>
-              <li><strong>Filter Coffee Brass Boilers (50L):</strong> 6 on field, 2 ready at HQ</li>
+              <li><strong>Filter Coffee Boilers (50L):</strong> 6 on field, 2 ready at HQ</li>
               <li><strong>Banana Leaf Service Bundles:</strong> 5,500 fresh leaves sourced from Kumbakonam</li>
             </ul>
           </div>
 
           <div class="dispatch-card">
             <div class="dispatch-header">
-              <span class="dispatch-title"><i class="fa-solid fa-seedling"></i> Agmark Cow Ghee & Raw Materials</span>
+              <span class="dispatch-title"><i class="fa-solid fa-seedling"></i> Agmark Cow Ghee & Spices</span>
               <span class="badge-active">100% Stock Verified</span>
             </div>
             <ul class="dispatch-list">
@@ -310,7 +321,7 @@
   <!-- VIEW 3: VIP PATRONS & BRAND HERITAGE                                      -->
   <!-- ========================================================================= -->
   <div id="view-patrons" class="view-panel">
-    <section class="hero-banner" style="padding: 26px 20px;">
+    <section class="hero-banner" style="padding: 24px 16px;">
       <div class="hero-content">
         <div class="hero-text">
           <div class="hero-badge">
@@ -343,7 +354,7 @@
       </div>
 
       <!-- Testimonials Grid -->
-      <h3 class="section-title" style="margin-top: 30px;"><i class="fa-solid fa-comments"></i> Words from Distinguished Leaders & Patrons</h3>
+      <h3 class="section-title" style="margin-top: 24px;"><i class="fa-solid fa-comments"></i> Words from Distinguished Leaders & Patrons</h3>
 
       <div class="testimonials-vip-grid">
         <!-- Ambani Pre-Wedding -->
@@ -413,10 +424,10 @@
   <div id="pdf-template">
     <div class="pdf-header-letterhead">
       <div class="pdf-logo-area">
-        <img src="assets/images/arasu-main.png" alt="Arusuvai Arasu" style="height: 60px; margin-bottom: 6px;">
+        <img src="assets/images/arasu-main.png" alt="Arusuvai Arasu" style="height: 55px; margin-bottom: 4px;">
         <h2>ARUSUVAI ARASU CATERERS</h2>
         <div class="pdf-tagline">Pioneers in Pure Vegetarian Banquets • Since 1952</div>
-        <div style="font-size: 10px; color: #8c5d13; margin-top: 3px; font-weight: bold;">
+        <div style="font-size: 9.5px; color: #8c5d13; margin-top: 2px; font-weight: bold;">
           Title "Arusuvai Arasu" Bestowed by Former President of India Dr. V.V. Giri
         </div>
       </div>
@@ -470,19 +481,19 @@
     </table>
 
     <div class="pdf-totals-section">
-      <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+      <div style="display: flex; justify-content: space-between; padding: 3px 0;">
         <span>Catering Subtotal:</span>
         <strong id="pdf-subtotal">₹0</strong>
       </div>
-      <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #666;">
+      <div style="display: flex; justify-content: space-between; padding: 3px 0; color: #666;">
         <span>GST (5% Catering Standard):</span>
         <span id="pdf-gst">₹0</span>
       </div>
-      <div style="display: flex; justify-content: space-between; padding: 6px 0; border-top: 2px solid #6e1017; margin-top: 4px; font-size: 13px; font-weight: bold; color: #6e1017;">
+      <div style="display: flex; justify-content: space-between; padding: 5px 0; border-top: 2px solid #6e1017; margin-top: 4px; font-size: 13px; font-weight: bold; color: #6e1017;">
         <span>Grand Total:</span>
         <span id="pdf-grand-total">₹0</span>
       </div>
-      <div style="display: flex; justify-content: space-between; padding: 6px 8px; background: #fdf5ea; border-radius: 4px; margin-top: 6px; font-weight: bold; color: #8c5d13;">
+      <div style="display: flex; justify-content: space-between; padding: 5px 8px; background: #fdf5ea; border-radius: 4px; margin-top: 5px; font-weight: bold; color: #8c5d13;">
         <span>Booking Advance (25%):</span>
         <span id="pdf-advance">₹0</span>
       </div>
@@ -490,7 +501,7 @@
 
     <div class="pdf-terms">
       <strong>Terms & Reservation Policy:</strong>
-      <ol style="margin-top: 5px; padding-left: 18px; line-height: 1.4;">
+      <ol style="margin-top: 4px; padding-left: 18px; line-height: 1.4;">
         <li>Muhurtham dates and hall catering slots are strictly locked upon receipt of 25% booking advance.</li>
         <li>Final guest count confirmation is required 7 days prior to the first event session.</li>
         <li>All preparations adhere to authentic Dr. Arusuvai Nataraja Iyer pure vegetarian cooking standards with premium Agmark cow ghee, first-grade oils, and Kumbakonam spices.</li>
@@ -501,11 +512,11 @@
     <div class="pdf-signature-row">
       <div>
         <div style="font-weight: bold; color: #6e1017;">Authorized Signatory</div>
-        <div style="color: #666; font-size: 10px;">For Arusuvai Arasu Caterers</div>
+        <div style="color: #666; font-size: 9.5px;">For Arusuvai Arasu Caterers</div>
       </div>
       <div style="text-align: right;">
         <div style="font-weight: bold; color: #6e1017;">Client Acceptance</div>
-        <div style="color: #666; font-size: 10px;">Signature & Date</div>
+        <div style="color: #666; font-size: 9.5px;">Signature & Date</div>
       </div>
     </div>
   </div>

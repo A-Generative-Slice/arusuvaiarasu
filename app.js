@@ -208,16 +208,21 @@ function switchView(viewName) {
   document.querySelectorAll(".nav-tab").forEach(tab => tab.classList.remove("active"));
   document.querySelectorAll(".view-panel").forEach(panel => panel.classList.remove("active"));
 
+  const mobileBar = document.getElementById("mobile-floating-bar");
+
   if (viewName === 'quote') {
     document.getElementById("tab-btn-quote").classList.add("active");
     document.getElementById("view-quote").classList.add("active");
+    if (mobileBar && window.innerWidth <= 960) mobileBar.style.display = "flex";
   } else if (viewName === 'inventory') {
     document.getElementById("tab-btn-inventory").classList.add("active");
     document.getElementById("view-inventory").classList.add("active");
+    if (mobileBar) mobileBar.style.display = "none";
     renderHallSlots();
   } else if (viewName === 'patrons') {
     document.getElementById("tab-btn-patrons").classList.add("active");
     document.getElementById("view-patrons").classList.add("active");
+    if (mobileBar) mobileBar.style.display = "none";
   }
 }
 
@@ -252,7 +257,7 @@ function renderTiers() {
     card.innerHTML = `
       <div class="tier-name">${tier.name}</div>
       <div class="tier-tagline">${tier.tagline}</div>
-      <div class="tier-price">Avg. ₹${tier.basePerPlate}/plate</div>
+      <div class="tier-price">Avg. ₹${tier.basePerPlate}/pax</div>
     `;
     container.appendChild(card);
   });
@@ -266,7 +271,7 @@ function selectTier(tierKey) {
   showToast(`Switched package to ${MENU_DATA.tiers[tierKey].name}`);
 }
 
-// Render Sessions
+// Render Sessions with touch-friendly +/- Stepper
 function renderSessions() {
   const container = document.getElementById("sessions-container");
   if (!container) return;
@@ -288,13 +293,18 @@ function renderSessions() {
           <div>
             <span class="session-name">${session.name}</span>
             <span class="session-time-badge"><i class="fa-regular fa-clock"></i> ${session.time}</span>
-            ${session.signature ? '<span class="menu-tag signature" style="margin-left:6px;"><i class="fa-solid fa-crown"></i> Arusuvai Signature</span>' : ''}
+            ${session.signature ? '<span class="menu-tag signature" style="margin-left:4px;"><i class="fa-solid fa-crown"></i> Arusuvai Signature</span>' : ''}
           </div>
         </div>
+        
         <div class="session-pax-wrap">
-          <label>Estimated Guests:</label>
-          <input type="number" id="pax-${session.id}" value="${session.defaultPax}" min="50" step="50" onchange="updatePax(${index}, this.value)" ${!session.active ? 'disabled' : ''}>
-          <span style="font-size:0.85rem; color:#888; margin-left:8px;">(~ ₹${sessionRate}/pax)</span>
+          <label>Guests:</label>
+          <div class="pax-stepper-box">
+            <button type="button" class="btn-stepper" onclick="stepPax(${index}, -50)" ${!session.active ? 'disabled' : ''}>−</button>
+            <input type="number" id="pax-${session.id}" value="${session.defaultPax}" min="50" step="50" onchange="updatePax(${index}, this.value)" ${!session.active ? 'disabled' : ''}>
+            <button type="button" class="btn-stepper" onclick="stepPax(${index}, 50)" ${!session.active ? 'disabled' : ''}>+</button>
+          </div>
+          <span class="session-rate-tag">(₹${sessionRate}/pax)</span>
         </div>
       </div>
       
@@ -315,8 +325,19 @@ function toggleSession(index) {
   calculateTotals();
 }
 
+function stepPax(index, delta) {
+  const current = MENU_DATA.sessions[index].defaultPax || 100;
+  const updated = Math.max(50, current + delta);
+  MENU_DATA.sessions[index].defaultPax = updated;
+  
+  const input = document.getElementById(`pax-${MENU_DATA.sessions[index].id}`);
+  if (input) input.value = updated;
+  
+  calculateTotals();
+}
+
 function updatePax(index, val) {
-  const num = parseInt(val) || 0;
+  const num = Math.max(50, parseInt(val) || 50);
   MENU_DATA.sessions[index].defaultPax = num;
   calculateTotals();
 }
@@ -339,7 +360,7 @@ function renderAddons() {
         <span class="addon-name">${addon.name}</span>
         <span class="addon-price">${priceLabel}</span>
       </div>
-      <input type="checkbox" ${addon.active ? 'checked' : ''} style="accent-color: var(--primary-maroon); pointer-events: none;">
+      <input type="checkbox" ${addon.active ? 'checked' : ''} style="width: 18px; height: 18px; accent-color: var(--primary-maroon); pointer-events: none;">
     `;
     container.appendChild(card);
   });
@@ -351,7 +372,7 @@ function toggleAddon(index) {
   calculateTotals();
 }
 
-// Calculate Total Pricing
+// Calculate Total Pricing and sync desktop & mobile bars
 function calculateTotals() {
   const tier = MENU_DATA.tiers[currentTier];
   let subtotal = 0;
@@ -359,8 +380,7 @@ function calculateTotals() {
   let activeSessionsCount = 0;
 
   const breakdownContainer = document.getElementById("quote-breakdown-items");
-  if (!breakdownContainer) return { subtotal: 0, gst: 0, grandTotal: 0, bookingAdvance: 0 };
-  breakdownContainer.innerHTML = "";
+  if (breakdownContainer) breakdownContainer.innerHTML = "";
 
   // Sessions cost
   MENU_DATA.sessions.forEach(session => {
@@ -371,13 +391,15 @@ function calculateTotals() {
       subtotal += sessionTotal;
       totalPax += session.defaultPax;
 
-      const row = document.createElement("div");
-      row.className = "breakdown-row";
-      row.innerHTML = `
-        <span>${session.name} (${session.defaultPax} pax @ ₹${sessionRate})</span>
-        <strong>${formatINR(sessionTotal)}</strong>
-      `;
-      breakdownContainer.appendChild(row);
+      if (breakdownContainer) {
+        const row = document.createElement("div");
+        row.className = "breakdown-row";
+        row.innerHTML = `
+          <span>${session.name} (${session.defaultPax} pax @ ₹${sessionRate})</span>
+          <strong>${formatINR(sessionTotal)}</strong>
+        `;
+        breakdownContainer.appendChild(row);
+      }
     }
   });
 
@@ -389,13 +411,15 @@ function calculateTotals() {
       const cost = addon.type === 'flat' ? addon.price : (addon.price * mainVirundhuPax);
       subtotal += cost;
 
-      const row = document.createElement("div");
-      row.className = "breakdown-row";
-      row.innerHTML = `
-        <span style="color: #946d27;"><i class="fa-solid fa-plus-circle"></i> ${addon.name}</span>
-        <strong>${formatINR(cost)}</strong>
-      `;
-      breakdownContainer.appendChild(row);
+      if (breakdownContainer) {
+        const row = document.createElement("div");
+        row.className = "breakdown-row";
+        row.innerHTML = `
+          <span style="color: #946d27;"><i class="fa-solid fa-plus-circle"></i> ${addon.name}</span>
+          <strong>${formatINR(cost)}</strong>
+        `;
+        breakdownContainer.appendChild(row);
+      }
     }
   });
 
@@ -403,10 +427,22 @@ function calculateTotals() {
   const grandTotal = subtotal + gst;
   const bookingAdvance = Math.round(grandTotal * 0.25); // 25% booking advance
 
-  document.getElementById("subtotal-val").textContent = formatINR(subtotal);
-  document.getElementById("gst-val").textContent = formatINR(gst);
-  document.getElementById("grand-total-val").textContent = formatINR(grandTotal);
-  document.getElementById("advance-val").textContent = formatINR(bookingAdvance);
+  // Sync Desktop Sidebar
+  const subEl = document.getElementById("subtotal-val");
+  const gstEl = document.getElementById("gst-val");
+  const grandEl = document.getElementById("grand-total-val");
+  const advEl = document.getElementById("advance-val");
+
+  if (subEl) subEl.textContent = formatINR(subtotal);
+  if (gstEl) gstEl.textContent = formatINR(gst);
+  if (grandEl) grandEl.textContent = formatINR(grandTotal);
+  if (advEl) advEl.textContent = formatINR(bookingAdvance);
+
+  // Sync Mobile Floating Bar
+  const mobileGrand = document.getElementById("mobile-grand-total");
+  const mobileAdv = document.getElementById("mobile-advance-tag");
+  if (mobileGrand) mobileGrand.textContent = formatINR(grandTotal);
+  if (mobileAdv) mobileAdv.textContent = `Adv (25%): ${formatINR(bookingAdvance)}`;
 
   return { subtotal, gst, grandTotal, bookingAdvance, totalPax, activeSessionsCount };
 }
@@ -419,7 +455,7 @@ function updateHallSelection(hallName) {
   showToast(`Updated venue to ${hallName}`);
 }
 
-// Generate PDF Quotation
+// Generate PDF Quotation (Robust mobile & desktop export)
 function generatePDF() {
   const clientName = document.getElementById("client-name").value || "Valued Family";
   const weddingHall = document.getElementById("event-hall").value || "Radisson Blu / MRC Hall";
@@ -427,7 +463,7 @@ function generatePDF() {
   const totals = calculateTotals();
   const quoteNo = "AA-" + Math.floor(100000 + Math.random() * 900000);
 
-  // Populate PDF template
+  // Populate PDF template fields
   document.getElementById("pdf-quote-no").textContent = quoteNo;
   document.getElementById("pdf-quote-date").textContent = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
   document.getElementById("pdf-client-name").textContent = clientName;
@@ -449,8 +485,8 @@ function generatePDF() {
       tr.innerHTML = `
         <td>
           <strong style="color: #6e1017;">${session.name}</strong><br>
-          <span style="font-size:10px; color:#666;">${session.time}</span><br>
-          <span style="font-size:9.5px; color:#444; display:block; margin-top:4px;"><strong>Menu:</strong> ${dishes}</span>
+          <span style="font-size:9.5px; color:#666;">${session.time}</span><br>
+          <span style="font-size:9px; color:#444; display:block; margin-top:3px;"><strong>Menu:</strong> ${dishes}</span>
         </td>
         <td style="text-align:center;">${session.defaultPax}</td>
         <td style="text-align:right;">₹${sessionRate}</td>
@@ -466,26 +502,35 @@ function generatePDF() {
   document.getElementById("pdf-grand-total").textContent = formatINR(totals.grandTotal);
   document.getElementById("pdf-advance").textContent = formatINR(totals.bookingAdvance);
 
-  showToast("Compiling Official Arusuvai Banquet Proposal...");
+  showToast("Generating Official Arusuvai Banquet Proposal PDF...");
 
-  // Generate PDF via html2pdf
+  // Force explicit A4 width during export so mobile view doesn't squash the PDF
   const element = document.getElementById("pdf-template");
   element.style.display = "block";
+  element.style.position = "fixed";
+  element.style.left = "0";
+  element.style.top = "0";
+  element.style.zIndex = "99999";
+  element.style.width = "794px";
 
   const opt = {
-    margin: [10, 10, 10, 10],
+    margin: [8, 8, 8, 8],
     filename: `Arusuvai_Arasu_Banquet_Quote_${clientName.replace(/\s+/g, '_')}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
+    html2canvas: { scale: 2, useCORS: true, width: 794 },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
   };
 
   html2pdf().set(opt).from(element).save().then(() => {
     element.style.display = "none";
+    element.style.position = "static";
+    element.style.zIndex = "auto";
     showToast("✓ Proposal PDF Downloaded Successfully!");
   }).catch(err => {
     console.error(err);
     element.style.display = "none";
+    element.style.position = "static";
+    element.style.zIndex = "auto";
     window.print();
   });
 }
@@ -513,7 +558,7 @@ function shareWhatsApp() {
 
   message += `%0A*Grand Total (incl 5% GST):* ${encodeURIComponent(formatINR(totals.grandTotal))}%0A`;
   message += `*Date Booking Advance (25%):* ${encodeURIComponent(formatINR(totals.bookingAdvance))}%0A%0A`;
-  message += `Generated instantly via Arusuvai Arasu Banquet Portal.`;
+  message += `Generated instantly via Arusuvai Arasu Banquet Portal:%0Ahttps://a-generative-slice.github.io/arusuvaiarasu/`;
 
   const waUrl = `https://wa.me/919841024446?text=${message}`;
   window.open(waUrl, '_blank');
@@ -527,7 +572,7 @@ function lockInventoryFromQuote() {
   showToast(`Slot for ${venue} reserved for ${clientName}!`);
   setTimeout(() => {
     switchView('inventory');
-  }, 1200);
+  }, 1000);
 }
 
 // ============================================================================
@@ -615,11 +660,6 @@ function handleHallAction(idx, currentStatus) {
   } else {
     showToast(`Manifest: ${hall.bookedFamily} | ${hall.teamAllocated}`);
   }
-}
-
-function openNewBookingModal() {
-  switchView('quote');
-  showToast("Ready to configure a new booking quotation!");
 }
 
 // Toast notification helper
