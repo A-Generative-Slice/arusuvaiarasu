@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arusuvai Arasu Caterers | Instant Banquet Quote & Multi-Hall Inventory Portal</title>
+  <meta name="description" content="Official Arusuvai Arasu 60-second multi-session Muhurtham quote engine and Chennai multi-hall catering inventory dispatch manager.">
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- html2pdf.js for 60-second PDF proposal export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+  <!-- Top Announcement Strip -->
+  <div class="top-strip">
+    <div class="top-strip-inner">
+      <span>★ DR. ARUSUVAI NATARAJA IYER LEGACY</span> &nbsp;•&nbsp; 
+      Entitled by Former President of India V.V. Giri &nbsp;•&nbsp; 
+      <span>75,000+ Grand Weddings Since 1952</span> &nbsp;•&nbsp;
+      Serving 1,00,000+ Guests in a Single Day
+    </div>
+  </div>
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-identity">
+        <img src="assets/images/arasu-main.png" alt="Arusuvai Arasu Official Logo" class="brand-main-logo">
+        <div class="brand-title-wrap">
+          <h1>ARUSUVAI ARASU</h1>
+          <div class="brand-subtitle">Pioneers in Pure Vegetarian Banquets & Event Planning</div>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="nav-tabs-wrapper">
+        <button class="nav-tab active" id="tab-btn-quote" onclick="switchView('quote')">
+          <i class="fa-solid fa-bolt"></i> 60s Banquet Quote
+        </button>
+        <button class="nav-tab" id="tab-btn-inventory" onclick="switchView('inventory')">
+          <i class="fa-solid fa-hotel"></i> Multi-Hall Inventory & Slots
+          <span class="pulse-badge">Live</span>
+        </button>
+        <button class="nav-tab" id="tab-btn-patrons" onclick="switchView('patrons')">
+          <i class="fa-solid fa-award"></i> VIP Patrons
+        </button>
+      </nav>
+
+      <div class="header-actions">
+        <div class="office-tag">
+          <i class="fa-solid fa-location-dot"></i> West Mambalam, Chennai
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 1: 60-SECOND BANQUET QUOTE GENERATOR                                 -->
+  <!-- ========================================================================= -->
+  <div id="view-quote" class="view-panel active">
+    <!-- Hero Banner -->
+    <section class="hero-banner">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-badge">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> High-Speed Sales Desk & Banquet Engine
+          </div>
+          <h2>Instant Muhurtham <span>Banquet Quote</span> Engine</h2>
+          <p>Configure multi-day wedding feasts, calculate dynamic per-plate pricing, and export an official presidential PDF banquet quotation with booking advance terms in under 60 seconds.</p>
+        </div>
+
+        <div class="hero-stats-row">
+          <div class="stat-pill">
+            <span class="num">75,000+</span>
+            <span class="label">Weddings Catered</span>
+          </div>
+          <div class="stat-pill">
+            <span class="num">1,00,000</span>
+            <span class="label">Dining in a Day</span>
+          </div>
+          <div class="stat-pill">
+            <span class="num">60.2k</span>
+            <span class="label">Instagram Community</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Layout Grid -->
+    <main class="main-wrapper">
+      
+      <!-- Left Column: Form & Session Builder -->
+      <div class="builder-column">
+
+        <!-- Step 1: Wedding & Client Details -->
+        <div class="builder-card">
+          <h3 class="section-title"><i class="fa-solid fa-file-signature"></i> 1. Wedding & Family Details</h3>
+          <div class="form-grid-3">
+            <div class="input-field">
+              <label for="client-name">Family / Bride & Groom</label>
+              <input type="text" id="client-name" placeholder="e.g. Sundaram & Radhika Family" value="Sundaram & Radhika Family">
+            </div>
+            <div class="input-field">
+              <label for="event-hall">Wedding Mandapam / Venue</label>
+              <select id="event-hall" onchange="updateHallSelection(this.value)">
+                <option value="Radisson Blu Resort & Temple Bay (Mahabalipuram)">Radisson Blu Resort & Temple Bay (Mahabalipuram)</option>
+                <option value="Mayor Ramanathan Chettiar Hall (MRC Hall, Santhome)">Mayor Ramanathan Chettiar Hall (MRC Hall)</option>
+                <option value="Sri Vari Kalyana Mandapam (Vanagaram)">Sri Vari Kalyana Mandapam (Vanagaram)</option>
+                <option value="Raja Muthiah & Rani Meyyammai Mandapam (Egmore)">Raja Muthiah Mandapam (Egmore)</option>
+                <option value="Em El Em Kalyana Mandapam (Mahalingapuram)">Em El Em Kalyana Mandapam (Mahalingapuram)</option>
+                <option value="AVM D Rajeshwari Kalyana Mandapam (Mylapore)">AVM D Rajeshwari Kalyana Mandapam</option>
+              </select>
+            </div>
+            <div class="input-field">
+              <label for="wedding-dates">Muhurtham Dates</label>
+              <input type="text" id="wedding-dates" placeholder="e.g. Nov 14 - 15, 2026" value="Nov 14 - 15, 2026">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Culinary Package / Tier -->
+        <div class="builder-card">
+          <h3 class="section-title"><i class="fa-solid fa-gem"></i> 2. Select Culinary Package Tier</h3>
+          <div class="tier-selector-grid" id="tiers-container">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- Step 3: Multi-Session Muhurtham Menu Builder -->
+        <div class="builder-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 12px;">
+            <h3 class="section-title" style="margin-bottom:0;"><i class="fa-solid fa-calendar-check"></i> 3. Select Wedding Sessions & Guest Count</h3>
+            <span style="font-size:0.8rem; color:#888;">Select sessions to include in quotation</span>
+          </div>
+          <p style="font-size: 0.84rem; color: #777; margin-bottom: 16px;">
+            Check or uncheck wedding sessions and customize expected guest counts. Menus automatically adapt with authentic Kumbakonam delicacies based on your package tier.
+          </p>
+          <div class="sessions-list" id="sessions-container">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+
+        <!-- Step 4: Special Add-ons & Live Stations -->
+        <div class="builder-card">
+          <h3 class="section-title"><i class="fa-solid fa-star"></i> 4. Signature Add-ons & Live Counters</h3>
+          <div class="addons-grid" id="addons-container">
+            <!-- Populated dynamically via app.js -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Live Sticky Estimate & Actions -->
+      <aside class="sidebar-column">
+        <div class="quote-summary-card">
+          <div class="quote-summary-header">
+            <img src="assets/images/arasu-main.png" alt="Logo small" style="height: 38px; margin-bottom: 6px;">
+            <span class="quote-badge-sub">Arusuvai FastQuote Engine</span>
+            <h3>Banquet Estimate</h3>
+          </div>
+
+          <div class="quote-breakdown-list" id="quote-breakdown-items">
+            <!-- Populated dynamically via app.js -->
+          </div>
+
+          <div class="breakdown-row" style="border-top: 1px solid #f0e2d0; padding-top: 10px;">
+            <span>Catering Subtotal:</span>
+            <strong id="subtotal-val">₹0</strong>
+          </div>
+          <div class="breakdown-row" style="font-size: 0.8rem; color: #888;">
+            <span>GST (5% Catering standard):</span>
+            <span id="gst-val">₹0</span>
+          </div>
+          <div class="breakdown-row total-row">
+            <span>Grand Total:</span>
+            <span id="grand-total-val">₹0</span>
+          </div>
+          <div class="breakdown-row advance-row">
+            <span>Date Booking Advance (25%):</span>
+            <span id="advance-val">₹0</span>
+          </div>
+
+          <div style="margin-top: 22px;">
+            <button class="btn-generate-pdf" id="btn-generate-pdf">
+              <i class="fa-solid fa-file-pdf"></i> Generate Official PDF Proposal
+            </button>
+            <button class="btn-whatsapp-share" id="btn-whatsapp-share">
+              <i class="fa-brands fa-whatsapp"></i> Share Quote on WhatsApp
+            </button>
+            <button class="btn-lock-inventory" onclick="lockInventoryFromQuote()">
+              <i class="fa-solid fa-calendar-plus"></i> Lock Hall Date Slot
+            </button>
+          </div>
+
+          <div class="trust-badge-footer">
+            <i class="fa-solid fa-shield-halved" style="color: var(--gold-accent);"></i> Guaranteed Pure Vegetarian Standards Since 1952
+          </div>
+        </div>
+      </aside>
+
+    </main>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 2: MULTI-HALL INVENTORY & MUHURTHAM DATE SLOTS                      -->
+  <!-- ========================================================================= -->
+  <div id="view-inventory" class="view-panel">
+    <section class="hero-banner" style="padding: 24px 20px;">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-badge">
+            <i class="fa-solid fa-warehouse"></i> Multi-Venue Operations & Dispatch Control
+          </div>
+          <h2>Chennai Multi-Hall <span>Inventory & Slot</span> Manager</h2>
+          <p>Prevent double bookings during peak muhurthams. Track hall reservations, kitchen team deployments, brass vessel sets, and raw material dispatch across Chennai's premier mandapams.</p>
+        </div>
+        <div class="inventory-quick-actions">
+          <button class="btn-gold" onclick="openNewBookingModal()">
+            <i class="fa-solid fa-plus"></i> Reserve New Hall Slot
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <div class="inventory-wrapper">
+      
+      <!-- Filter Bar -->
+      <div class="filter-strip">
+        <div class="filter-group">
+          <label><i class="fa-regular fa-calendar"></i> Select Muhurtham Period:</label>
+          <select id="muhurtham-period-filter" onchange="filterHallSlots(this.value)">
+            <option value="nov_2026">November 2026 (Peak Muhurtham Season)</option>
+            <option value="dec_2026">December 2026 (Margazhi Season)</option>
+            <option value="jan_2027">January / Thai 2027 (Auspicious Weddings)</option>
+            <option value="feb_2027">February 2027 (Masi Muhurthams)</option>
+          </select>
+        </div>
+        <div class="inventory-status-legend">
+          <span class="legend-item"><span class="dot green"></span> Available</span>
+          <span class="legend-item"><span class="dot yellow"></span> Tentative Inquiry</span>
+          <span class="legend-item"><span class="dot red"></span> Advance Locked (Confirmed)</span>
+        </div>
+      </div>
+
+      <!-- Halls Grid -->
+      <div class="halls-grid" id="halls-grid-container">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Kitchen & Equipment Dispatch Summary -->
+      <div class="builder-card" style="margin-top: 30px;">
+        <h3 class="section-title"><i class="fa-solid fa-truck-ramp-box"></i> Live Equipment & Catering Team Dispatch Tracker</h3>
+        <p style="font-size: 0.85rem; color: #666; margin-bottom: 18px;">Real-time inventory deployment from West Mambalam central kitchen warehouse to booked wedding mandapams.</p>
+
+        <div class="dispatch-cards-grid">
+          <div class="dispatch-card">
+            <div class="dispatch-header">
+              <span class="dispatch-title"><i class="fa-solid fa-users-gear"></i> Master Chef Teams</span>
+              <span class="badge-active">3 of 4 Deployed</span>
+            </div>
+            <ul class="dispatch-list">
+              <li><strong>Team A (Chef Sundaram):</strong> Radisson Blu Mahabalipuram (1500 Pax)</li>
+              <li><strong>Team B (Chef Rangarajan):</strong> MRC Hall Santhome (2000 Pax)</li>
+              <li><strong>Team C (Chef Venkatraman):</strong> Sri Vari Kalyana Mandapam (1200 Pax)</li>
+              <li style="color: #27ae60;"><strong>Team D (Chef Natarajan Jr):</strong> On Standby (West Mambalam HQ)</li>
+            </ul>
+          </div>
+
+          <div class="dispatch-card">
+            <div class="dispatch-header">
+              <span class="dispatch-title"><i class="fa-solid fa-bowl-food"></i> Traditional Brass Urn Sets</span>
+              <span class="badge-active">42 / 50 Sets Dispatched</span>
+            </div>
+            <ul class="dispatch-list">
+              <li><strong>Kumbakonam Heavy Brass Urulis:</strong> 18 at Radisson Blu, 14 at MRC Hall</li>
+              <li><strong>Filter Coffee Brass Boilers (50L):</strong> 6 on field, 2 ready at HQ</li>
+              <li><strong>Banana Leaf Service Bundles:</strong> 5,500 fresh leaves sourced from Kumbakonam</li>
+            </ul>
+          </div>
+
+          <div class="dispatch-card">
+            <div class="dispatch-header">
+              <span class="dispatch-title"><i class="fa-solid fa-seedling"></i> Agmark Cow Ghee & Raw Materials</span>
+              <span class="badge-active">100% Stock Verified</span>
+            </div>
+            <ul class="dispatch-list">
+              <li><strong>Agmark Cow Ghee:</strong> 25 Tins (15kg) allocated for upcoming muhurtham</li>
+              <li><strong>Kumbakonam Kadamba Spices:</strong> Batch #AA-884 ready</li>
+              <li><strong>A2 Pure Milk & Curd:</strong> Direct farm dispatch schedule confirmed</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- VIEW 3: VIP PATRONS & BRAND HERITAGE                                      -->
+  <!-- ========================================================================= -->
+  <div id="view-patrons" class="view-panel">
+    <section class="hero-banner" style="padding: 26px 20px;">
+      <div class="hero-content">
+        <div class="hero-text">
+          <div class="hero-badge">
+            <i class="fa-solid fa-crown"></i> 75 Years of Unrivaled Culinary Mastery
+          </div>
+          <h2>Our Prestigious <span>Legacy & VIP</span> Patrons</h2>
+          <p>From Former President V.V. Giri's royal title to Prime Minister Modi's praises and catering the Ambani pre-wedding celebrations, Arusuvai Arasu represents the gold standard of vegetarian banqueting.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="patrons-wrapper">
+      
+      <!-- Founder Tribute Card -->
+      <div class="founder-card">
+        <img src="assets/images/nataraja-1.png" alt="Dr. Arusuvai Nataraja Iyer" class="founder-photo">
+        <div class="founder-text">
+          <span class="heritage-kumbakonam-tag">Kumbakonam Heritage Since 1952</span>
+          <h2>Dr. Arusuvai Nataraja Iyer</h2>
+          <p class="founder-title">Entitled 'Arusuvai Arasu' (King of Six Tastes) by Former Indian President V.V. Giri</p>
+          <p class="founder-quote">
+            "Catering is not merely cooking; it is the divine art of honoring guests with sacred purity, authentic flavors, and unconditional hospitality. For over seven decades, every grain of rice and dollop of ghee served by Arusuvai Arasu embodies this sacred Kumbakonam tradition."
+          </p>
+          <div class="founder-stats">
+            <div><strong>75,000+</strong><span>Weddings Served</span></div>
+            <div><strong>1,00,000+</strong><span>Single-Day Dining</span></div>
+            <div><strong>1008 Kalyanam</strong><span>Mahamaham Caterer</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonials Grid -->
+      <h3 class="section-title" style="margin-top: 30px;"><i class="fa-solid fa-comments"></i> Words from Distinguished Leaders & Patrons</h3>
+
+      <div class="testimonials-vip-grid">
+        <!-- Ambani Pre-Wedding -->
+        <div class="vip-testimonial-card">
+          <div class="vip-header">
+            <img src="assets/images/Ananth-Radhika.png" alt="Anant & Radhika Ambani" class="vip-avatar">
+            <div>
+              <h4>Anant & Radhika Ambani</h4>
+              <span class="vip-role">Pre-Wedding Celebrations</span>
+            </div>
+          </div>
+          <p class="vip-body">
+            "Wow we still can’t get over what an incredible weekend it was, you guys are amazing. So many compliments on how 'chill and cool' our planners and culinary masters are!"
+          </p>
+        </div>
+
+        <!-- Mukesh & Nita Ambani -->
+        <div class="vip-testimonial-card">
+          <div class="vip-header">
+            <img src="assets/images/ambani-image.png" alt="Mukesh & Nita Ambani" class="vip-avatar">
+            <div>
+              <h4>Mukesh & Nita Ambani</h4>
+              <span class="vip-role">Mumbai</span>
+            </div>
+          </div>
+          <p class="vip-body">
+            "Mukesh and I are really very fond of South Indian food and always relish the delicious Sambar, Idlies, Dosa and different recipes prepared by you. Decades of your culinary experience has been evident in each of them."
+          </p>
+          <img src="assets/images/sign-nitaambani.png" alt="Nita Ambani Signature" class="vip-sign">
+        </div>
+
+        <!-- Dr. K.J. Yesudas -->
+        <div class="vip-testimonial-card">
+          <div class="vip-header">
+            <img src="assets/images/yesudasss.jpg" alt="Padma Shri Dr. K. J. Yesudas" class="vip-avatar">
+            <div>
+              <h4>Padma Shri Dr. K. J. Yesudas</h4>
+              <span class="vip-role">Legendary Carnatic Maestro</span>
+            </div>
+          </div>
+          <p class="vip-body">
+            "Being a highly satisfied customer of Arusuvai is secondary, primarily we have become a family! Our relationship spans over two decades and my reverence for Shri Nataraja Iyer only continues to grow."
+          </p>
+        </div>
+
+        <!-- PM Narendra Modi -->
+        <div class="vip-testimonial-card">
+          <div class="vip-header">
+            <img src="assets/images/modi4.0.png" alt="Shri Narendra Modi" class="vip-avatar">
+            <div>
+              <h4>Hon'ble PM Shri Narendra Modi</h4>
+              <span class="vip-role">Prime Minister of India</span>
+            </div>
+          </div>
+          <p class="vip-body">
+            "Marriages are made in heaven. My prescription to young couples is that there should be a movement like 'Wed in India' celebrating our rich culture, divine food, and grand traditions."
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- HIDDEN PRINTABLE PDF PROPOSAL TEMPLATE                                    -->
+  <!-- ========================================================================= -->
+  <div id="pdf-template">
+    <div class="pdf-header-letterhead">
+      <div class="pdf-logo-area">
+        <img src="assets/images/arasu-main.png" alt="Arusuvai Arasu" style="height: 60px; margin-bottom: 6px;">
+        <h2>ARUSUVAI ARASU CATERERS</h2>
+        <div class="pdf-tagline">Pioneers in Pure Vegetarian Banquets • Since 1952</div>
+        <div style="font-size: 10px; color: #8c5d13; margin-top: 3px; font-weight: bold;">
+          Title "Arusuvai Arasu" Bestowed by Former President of India Dr. V.V. Giri
+        </div>
+      </div>
+      <div class="pdf-office-info">
+        <strong>Headquarters:</strong> West Mambalam, Chennai - 600033<br>
+        <strong>Phone:</strong> +91 98410 24446 / +91 44 2489 2489<br>
+        <strong>Web:</strong> www.arusuvaiarasu.in<br>
+        <strong>GSTIN:</strong> 33AAACR4829K1Z5
+      </div>
+    </div>
+
+    <div class="pdf-quote-meta">
+      <div class="pdf-meta-item">
+        <strong>Quotation No:</strong>
+        <span id="pdf-quote-no">AA-789201</span>
+      </div>
+      <div class="pdf-meta-item">
+        <strong>Issue Date:</strong>
+        <span id="pdf-quote-date">19 Sep 2026</span>
+      </div>
+      <div class="pdf-meta-item">
+        <strong>Client / Family:</strong>
+        <span id="pdf-client-name">Sundaram & Family</span>
+      </div>
+      <div class="pdf-meta-item">
+        <strong>Package Tier:</strong>
+        <span id="pdf-tier-name">Royal Arusuvai</span>
+      </div>
+      <div class="pdf-meta-item" style="grid-column: span 2;">
+        <strong>Venue / Mandapam:</strong>
+        <span id="pdf-venue">Radisson Blu Resort & Temple Bay</span>
+      </div>
+      <div class="pdf-meta-item" style="grid-column: span 2;">
+        <strong>Muhurtham Dates:</strong>
+        <span id="pdf-dates">Nov 14 - 15, 2026</span>
+      </div>
+    </div>
+
+    <table class="pdf-table">
+      <thead>
+        <tr>
+          <th style="width: 55%;">Session & Curated Menu Highlights</th>
+          <th style="width: 15%; text-align: center;">Guests (Pax)</th>
+          <th style="width: 15%; text-align: right;">Rate / Pax</th>
+          <th style="width: 15%; text-align: right;">Total Amount</th>
+        </tr>
+      </thead>
+      <tbody id="pdf-table-body">
+        <!-- Injected via JavaScript -->
+      </tbody>
+    </table>
+
+    <div class="pdf-totals-section">
+      <div style="display: flex; justify-content: space-between; padding: 4px 0;">
+        <span>Catering Subtotal:</span>
+        <strong id="pdf-subtotal">₹0</strong>
+      </div>
+      <div style="display: flex; justify-content: space-between; padding: 4px 0; color: #666;">
+        <span>GST (5% Catering Standard):</span>
+        <span id="pdf-gst">₹0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; padding: 6px 0; border-top: 2px solid #6e1017; margin-top: 4px; font-size: 13px; font-weight: bold; color: #6e1017;">
+        <span>Grand Total:</span>
+        <span id="pdf-grand-total">₹0</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; padding: 6px 8px; background: #fdf5ea; border-radius: 4px; margin-top: 6px; font-weight: bold; color: #8c5d13;">
+        <span>Booking Advance (25%):</span>
+        <span id="pdf-advance">₹0</span>
+      </div>
+    </div>
+
+    <div class="pdf-terms">
+      <strong>Terms & Reservation Policy:</strong>
+      <ol style="margin-top: 5px; padding-left: 18px; line-height: 1.4;">
+        <li>Muhurtham dates and hall catering slots are strictly locked upon receipt of 25% booking advance.</li>
+        <li>Final guest count confirmation is required 7 days prior to the first event session.</li>
+        <li>All preparations adhere to authentic Dr. Arusuvai Nataraja Iyer pure vegetarian cooking standards with premium Agmark cow ghee, first-grade oils, and Kumbakonam spices.</li>
+        <li>Live counters require 3-phase power and clean water access at the venue premises.</li>
+      </ol>
+    </div>
+
+    <div class="pdf-signature-row">
+      <div>
+        <div style="font-weight: bold; color: #6e1017;">Authorized Signatory</div>
+        <div style="color: #666; font-size: 10px;">For Arusuvai Arasu Caterers</div>
+      </div>
+      <div style="text-align: right;">
+        <div style="font-weight: bold; color: #6e1017;">Client Acceptance</div>
+        <div style="color: #666; font-size: 10px;">Signature & Date</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification element -->
+  <div id="toast" class="toast-msg">
+    <i class="fa-solid fa-circle-check" style="color: #e8c77b;"></i> Action Completed
+  </div>
+
+  <!-- JavaScript logic -->
+  <script src="app.js"></script>
+</body>
+</html>
