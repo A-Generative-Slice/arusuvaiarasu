@@ -4,20 +4,23 @@
 const MENU_DATA = {
   tiers: {
     classic: {
-      name: "Classic Heritage",
-      tagline: "Authentic Kumbakonam Tradition",
+      name: "Classic",
+      fullName: "Classic Heritage",
+      tagline: "Kumbakonam Tradition",
       multiplier: 1.0,
       basePerPlate: 650
     },
     royal: {
-      name: "Royal Arusuvai",
+      name: "Royal",
+      fullName: "Royal Arusuvai (Signature)",
       tagline: "Most Popular Muhurtham Spread",
       multiplier: 1.25,
       basePerPlate: 850
     },
     presidential: {
-      name: "Presidential Maharaja",
-      tagline: "As served to Presidents & VIPs",
+      name: "Presidential",
+      fullName: "Presidential Maharaja",
+      tagline: "Served to Presidents & VIPs",
       multiplier: 1.65,
       basePerPlate: 1200
     }
@@ -72,21 +75,21 @@ const MENU_DATA = {
       signature: true,
       menus: {
         classic: [
-          "Arusuvai Signature Badam Halwa", "Paruppu & Pure Nei", "Kumbakonam Kadamba Sambhar", 
-          "Mor Kuzhambu", "Vazhaipoo Poriyal", "Avial", "Urulai Kara Roast", 
+          "Arusuvai Badam Halwa", "Paruppu & Nei", "Kadamba Sambhar", 
+          "Mor Kuzhambu", "Vazhaipoo Poriyal", "Avial", "Urulai Roast", 
           "Mysore Rasam", "Ada Pradhaman Payasam", "Appalam", "Getti Thayir", "Sweet Beeda"
         ],
         royal: [
-          "Authentic Kumbakonam Badam Halwa (Hot)", "Special Mysore Pak", "Nattu Kozhi Style Mushroom Roast (Veg)", 
+          "Authentic Hot Badam Halwa", "Special Mysore Pak", "Nattu Kozhi Style Mushroom Roast (Veg)", 
           "Paruppu & Cow Ghee", "Ennai Kathirikai Gothsu", "Tirunelveli Sodhi", "Avial", 
-          "Senai Kizhangu Varuval", "Kalyana Mor Kuzhambu", "Jeeraga Rasam", "Paal Payasam with Charoli", 
+          "Senai Kizhangu Varuval", "Kalyana Mor Kuzhambu", "Jeeraga Rasam", "Paal Payasam", 
           "Appalam", "Thick Curd", "Special Royal Beeda"
         ],
         presidential: [
           "Presidential Gold Vark Badam Halwa", "Kasi Halwa in Ghee", "Neyyappam", 
           "Heritage Paruppu & A2 Cow Ghee", "Chettinad Veg Pulao", "Murungaikai Mullangi Sambhar", 
-          "Special Tirunelveli Sodhi", "Arusuvai Special Mor Kuzhambu", "Vazhaipoo Vadai", 
-          "Thalicha Rasam", "Elaneer Payasam (Tender Coconut)", "Malli Poo Appalam", "Clay Pot Set Curd", "Banarasi Pan"
+          "Special Tirunelveli Sodhi", "Mor Kuzhambu", "Vazhaipoo Vadai", 
+          "Thalicha Rasam", "Elaneer Payasam", "Malli Poo Appalam", "Clay Pot Set Curd", "Banarasi Pan"
         ]
       }
     },
@@ -99,8 +102,8 @@ const MENU_DATA = {
       priceRatio: 1.1,
       menus: {
         classic: ["Paneer Butter Masala", "Veg Pulao", "Romali Roti", "Dal Makhani", "Curd Rice", "Gulab Jamun with Ice Cream"],
-        royal: ["Live Appam & Stew Station", "Paneer Tikka Live", "Hyderabadi Veg Biryani with Mirchi ka Salan", "Butter Naan", "Live Italian Pasta", "Matka Kulfi"],
-        presidential: ["Luxury Live Counters (Dosa, Chaat, Pasta, Dimsum)", "Awadhi Dum Biryani", "Stuffed Paneer Pasanda", "Malabar Parotta & Veg Kurma", "Live Tawa Ice Cream Roll", "Signature Falooda"]
+        royal: ["Live Appam & Stew", "Paneer Tikka Live", "Hyderabadi Veg Biryani & Salan", "Butter Naan", "Live Italian Pasta", "Matka Kulfi"],
+        presidential: ["Luxury Live Counters (Dosa, Chaat, Pasta)", "Awadhi Dum Biryani", "Paneer Pasanda", "Malabar Parotta & Kurma", "Tawa Ice Cream Roll", "Signature Falooda"]
       }
     }
   ],
@@ -131,7 +134,7 @@ const CHENNAI_HALLS = [
   {
     id: "mrc_hall",
     name: "Mayor Ramanathan Chettiar Hall (MRC Hall)",
-    location: "Raja Annamalaipuram / Santhome, Chennai",
+    location: "Raja Annamalaipuram, Chennai",
     capacity: "2,500 Guests",
     image: "assets/images/footer-1.jpg",
     statusNov: "locked",
@@ -157,7 +160,7 @@ const CHENNAI_HALLS = [
   {
     id: "raja_muthiah",
     name: "Raja Muthiah & Rani Meyyammai Mandapam",
-    location: "Rukmani Lakshmipathi Salai, Egmore, Chennai",
+    location: "Egmore, Chennai",
     capacity: "3,000 Guests",
     image: "assets/images/Mahabalipuram-4.jpg",
     statusNov: "available",
@@ -170,7 +173,7 @@ const CHENNAI_HALLS = [
   {
     id: "em_el_em",
     name: "Em El Em Kalyana Mandapam",
-    location: "Mahalingapuram, Nungambakkam, Chennai",
+    location: "Mahalingapuram, Chennai",
     capacity: "1,200 Guests",
     image: "assets/images/footer-1.jpg",
     statusNov: "locked",
@@ -183,7 +186,7 @@ const CHENNAI_HALLS = [
   {
     id: "avm_rajeshwari",
     name: "AVM D Rajeshwari Kalyana Mandapam",
-    location: "Dr. Radhakrishnan Salai, Mylapore, Chennai",
+    location: "Mylapore, Chennai",
     capacity: "1,000 Guests",
     image: "assets/images/footer-2.jpg",
     statusNov: "available",
@@ -224,6 +227,7 @@ function switchView(viewName) {
     document.getElementById("view-patrons").classList.add("active");
     if (mobileBar) mobileBar.style.display = "none";
   }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // Initialize Application
@@ -235,11 +239,17 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHallSlots();
 
   // Event listeners for inputs
-  document.getElementById("client-name").addEventListener("input", updateQuote);
-  document.getElementById("event-hall").addEventListener("change", updateQuote);
-  document.getElementById("wedding-dates").addEventListener("input", updateQuote);
-  document.getElementById("btn-generate-pdf").addEventListener("click", generatePDF);
-  document.getElementById("btn-whatsapp-share").addEventListener("click", shareWhatsApp);
+  const nameEl = document.getElementById("client-name");
+  const hallEl = document.getElementById("event-hall");
+  const dateEl = document.getElementById("wedding-dates");
+  const pdfBtn = document.getElementById("btn-generate-pdf");
+  const waBtn = document.getElementById("btn-whatsapp-share");
+
+  if (nameEl) nameEl.addEventListener("input", updateQuote);
+  if (hallEl) hallEl.addEventListener("change", updateQuote);
+  if (dateEl) dateEl.addEventListener("input", updateQuote);
+  if (pdfBtn) pdfBtn.addEventListener("click", generatePDF);
+  if (waBtn) waBtn.addEventListener("click", shareWhatsApp);
 });
 
 // Render Tiers
@@ -256,8 +266,8 @@ function renderTiers() {
 
     card.innerHTML = `
       <div class="tier-name">${tier.name}</div>
+      <div class="tier-price">₹${tier.basePerPlate}</div>
       <div class="tier-tagline">${tier.tagline}</div>
-      <div class="tier-price">Avg. ₹${tier.basePerPlate}/pax</div>
     `;
     container.appendChild(card);
   });
@@ -268,10 +278,10 @@ function selectTier(tierKey) {
   renderTiers();
   renderSessions();
   calculateTotals();
-  showToast(`Switched package to ${MENU_DATA.tiers[tierKey].name}`);
+  showToast(`Switched package to ${MENU_DATA.tiers[tierKey].fullName}`);
 }
 
-// Render Sessions with touch-friendly +/- Stepper
+// Render Sessions with Touch Stepper
 function renderSessions() {
   const container = document.getElementById("sessions-container");
   if (!container) return;
@@ -292,8 +302,7 @@ function renderSessions() {
           <input type="checkbox" id="check-${session.id}" ${session.active ? 'checked' : ''} onchange="toggleSession(${index})">
           <div>
             <span class="session-name">${session.name}</span>
-            <span class="session-time-badge"><i class="fa-regular fa-clock"></i> ${session.time}</span>
-            ${session.signature ? '<span class="menu-tag signature" style="margin-left:4px;"><i class="fa-solid fa-crown"></i> Arusuvai Signature</span>' : ''}
+            <div class="session-time-badge"><i class="fa-regular fa-clock"></i> ${session.time}</div>
           </div>
         </div>
         
@@ -304,12 +313,12 @@ function renderSessions() {
             <input type="number" id="pax-${session.id}" value="${session.defaultPax}" min="50" step="50" onchange="updatePax(${index}, this.value)" ${!session.active ? 'disabled' : ''}>
             <button type="button" class="btn-stepper" onclick="stepPax(${index}, 50)" ${!session.active ? 'disabled' : ''}>+</button>
           </div>
-          <span class="session-rate-tag">(₹${sessionRate}/pax)</span>
+          <span class="session-rate-tag">(@ ₹${sessionRate})</span>
         </div>
       </div>
       
       <div class="session-menu-preview">
-        <div class="menu-category-title"><i class="fa-solid fa-utensils"></i> Curated ${MENU_DATA.tiers[currentTier].name} Menu Preview:</div>
+        <div class="menu-category-title"><i class="fa-solid fa-utensils"></i> Curated ${MENU_DATA.tiers[currentTier].name} Menu:</div>
         <div class="menu-tags-list">
           ${currentMenu.map(dish => `<span class="menu-tag">${dish}</span>`).join('')}
         </div>
@@ -372,7 +381,7 @@ function toggleAddon(index) {
   calculateTotals();
 }
 
-// Calculate Total Pricing and sync desktop & mobile bars
+// Calculate Total Pricing (Desktop Sidebar + Mobile Floating Bar)
 function calculateTotals() {
   const tier = MENU_DATA.tiers[currentTier];
   let subtotal = 0;
@@ -455,84 +464,298 @@ function updateHallSelection(hallName) {
   showToast(`Updated venue to ${hallName}`);
 }
 
-// Generate PDF Quotation (Robust mobile & desktop export)
+// ============================================================================
+// ROCK-SOLID PDF GENERATOR (jsPDF Native Vector Engine - Never Blank)
+// ============================================================================
 function generatePDF() {
-  const clientName = document.getElementById("client-name").value || "Valued Family";
-  const weddingHall = document.getElementById("event-hall").value || "Radisson Blu / MRC Hall";
+  const clientName = document.getElementById("client-name").value || "Sundaram Family";
+  const weddingHall = document.getElementById("event-hall").value || "Radisson Blu Resort";
   const weddingDates = document.getElementById("wedding-dates").value || "Upcoming Muhurtham";
   const totals = calculateTotals();
   const quoteNo = "AA-" + Math.floor(100000 + Math.random() * 900000);
+  const tierName = MENU_DATA.tiers[currentTier].fullName;
 
-  // Populate PDF template fields
-  document.getElementById("pdf-quote-no").textContent = quoteNo;
-  document.getElementById("pdf-quote-date").textContent = new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-  document.getElementById("pdf-client-name").textContent = clientName;
-  document.getElementById("pdf-dates").textContent = weddingDates;
-  document.getElementById("pdf-venue").textContent = weddingHall;
-  document.getElementById("pdf-tier-name").textContent = MENU_DATA.tiers[currentTier].name;
+  showToast("Generating Official Arusuvai Banquet Proposal...");
 
-  // Populate PDF session table
-  const pdfTableBody = document.getElementById("pdf-table-body");
-  pdfTableBody.innerHTML = "";
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('p', 'mm', 'a4');
 
-  MENU_DATA.sessions.forEach(session => {
-    if (session.active) {
-      const sessionRate = Math.round(MENU_DATA.tiers[currentTier].basePerPlate * session.priceRatio);
-      const sessionCost = sessionRate * session.defaultPax;
-      const dishes = (session.menus[currentTier] || session.menus.royal).join(", ");
+    // 1. Top Decorative Bar
+    doc.setFillColor(110, 16, 23); // Royal Maroon
+    doc.rect(0, 0, 210, 8, 'F');
+    doc.setFillColor(201, 152, 57); // Gold accent line
+    doc.rect(0, 8, 210, 1.5, 'F');
 
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>
-          <strong style="color: #6e1017;">${session.name}</strong><br>
-          <span style="font-size:9.5px; color:#666;">${session.time}</span><br>
-          <span style="font-size:9px; color:#444; display:block; margin-top:3px;"><strong>Menu:</strong> ${dishes}</span>
-        </td>
-        <td style="text-align:center;">${session.defaultPax}</td>
-        <td style="text-align:right;">₹${sessionRate}</td>
-        <td style="text-align:right; font-weight:bold;">${formatINR(sessionCost)}</td>
+    // 2. Add Logo via Canvas (safe from blank canvas bug)
+    let logoDrawn = false;
+    const logoImg = document.getElementById("main-brand-logo");
+    if (logoImg && logoImg.complete && logoImg.naturalWidth > 0) {
+      try {
+        const canvas = document.createElement("canvas");
+        canvas.width = logoImg.naturalWidth;
+        canvas.height = logoImg.naturalHeight;
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(logoImg, 0, 0);
+        const dataURL = canvas.toDataURL("image/png");
+        doc.addImage(dataURL, 'PNG', 14, 13, 34, 16);
+        logoDrawn = true;
+      } catch (err) {
+        console.warn("Could not draw logo image to canvas:", err);
+      }
+    }
+
+    // 3. Header Text
+    const textStartX = logoDrawn ? 52 : 14;
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(110, 16, 23);
+    doc.setFontSize(16);
+    doc.text("ARUSUVAI ARASU CATERERS", textStartX, 19);
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(8);
+    doc.setTextColor(150, 100, 30);
+    doc.text("PIONEERS IN PURE VEGETARIAN BANQUETS • SINCE 1952", textStartX, 24);
+
+    doc.setFontSize(7.5);
+    doc.setTextColor(100, 100, 100);
+    doc.text("Title 'Arusuvai Arasu' Bestowed by Former President of India Dr. V.V. Giri", textStartX, 28);
+
+    // Office Right text
+    doc.setFontSize(7.5);
+    doc.text("West Mambalam, Chennai - 600033", 196, 18, { align: "right" });
+    doc.text("Phone: +91 98410 24446 | www.arusuvaiarasu.in", 196, 22, { align: "right" });
+    doc.text("GSTIN: 33AAACR4829K1Z5", 196, 26, { align: "right" });
+
+    // Dividing double line
+    doc.setDrawColor(200, 160, 90);
+    doc.setLineWidth(0.5);
+    doc.line(14, 32, 196, 32);
+
+    // 4. Metadata Box
+    doc.setFillColor(252, 249, 244);
+    doc.setDrawColor(235, 216, 194);
+    doc.roundedRect(14, 35, 182, 20, 2, 2, 'FD');
+
+    doc.setFontSize(8);
+    doc.setTextColor(110, 16, 23);
+    doc.setFont("helvetica", "bold");
+    doc.text("QUOTATION NO:", 18, 41);
+    doc.text("FAMILY / CLIENT:", 75, 41);
+    doc.text("PACKAGE TIER:", 140, 41);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(40, 40, 40);
+    doc.text(quoteNo, 45, 41);
+    doc.text(clientName.substring(0, 28), 105, 41);
+    doc.text(tierName.substring(0, 22), 165, 41);
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(110, 16, 23);
+    doc.text("DATE:", 18, 49);
+    doc.text("VENUE / MANDAPAM:", 75, 49);
+    doc.text("MUHURTHAM:", 140, 49);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(40, 40, 40);
+    doc.text(new Date().toLocaleDateString('en-IN'), 45, 49);
+    doc.text(weddingHall.substring(0, 28), 110, 49);
+    doc.text(weddingDates.substring(0, 20), 164, 49);
+
+    // 5. Table of Sessions
+    const tableRows = [];
+    MENU_DATA.sessions.forEach(session => {
+      if (session.active) {
+        const rate = Math.round(MENU_DATA.tiers[currentTier].basePerPlate * session.priceRatio);
+        const cost = rate * session.defaultPax;
+        const dishes = (session.menus[currentTier] || session.menus.royal).slice(0, 7).join(", ");
+        tableRows.push([
+          `${session.name}\n(${session.time})`,
+          dishes,
+          session.defaultPax.toString(),
+          `Rs. ${rate}`,
+          `Rs. ${cost.toLocaleString('en-IN')}`
+        ]);
+      }
+    });
+
+    MENU_DATA.addons.forEach(addon => {
+      if (addon.active) {
+        const mainVirundhuPax = (MENU_DATA.sessions.find(s => s.id === "kalyana_virundhu") || {}).defaultPax || 500;
+        const cost = addon.type === 'flat' ? addon.price : (addon.price * mainVirundhuPax);
+        tableRows.push([
+          `Add-on: ${addon.name}`,
+          "Signature Service Station & Staffing",
+          addon.type === 'flat' ? '1 Set' : `${mainVirundhuPax} Pax`,
+          addon.type === 'flat' ? 'Flat' : `Rs. ${addon.price}`,
+          `Rs. ${cost.toLocaleString('en-IN')}`
+        ]);
+      }
+    });
+
+    doc.autoTable({
+      startY: 58,
+      head: [['Session & Timing', 'Curated Delicacies', 'Pax', 'Rate', 'Total']],
+      body: tableRows,
+      theme: 'grid',
+      headStyles: {
+        fillColor: [110, 16, 23],
+        textColor: 255,
+        fontStyle: 'bold',
+        fontSize: 8,
+        halign: 'left'
+      },
+      columnStyles: {
+        0: { cellWidth: 42, fontSize: 7.5, fontStyle: 'bold' },
+        1: { cellWidth: 80, fontSize: 7 },
+        2: { cellWidth: 16, fontSize: 7.5, halign: 'center' },
+        3: { cellWidth: 20, fontSize: 7.5, halign: 'right' },
+        4: { cellWidth: 24, fontSize: 7.5, halign: 'right', fontStyle: 'bold' }
+      },
+      styles: {
+        cellPadding: 2.5,
+        valign: 'middle'
+      }
+    });
+
+    let finalY = doc.lastAutoTable.finalY + 4;
+
+    // 6. Totals Box
+    if (finalY > 230) {
+      doc.addPage();
+      finalY = 20;
+    }
+
+    doc.setFillColor(252, 245, 235);
+    doc.setDrawColor(230, 205, 170);
+    doc.roundedRect(110, finalY, 86, 26, 2, 2, 'FD');
+
+    doc.setFontSize(8);
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(60, 60, 60);
+    doc.text("Catering Subtotal:", 114, finalY + 5);
+    doc.text(`Rs. ${totals.subtotal.toLocaleString('en-IN')}`, 192, finalY + 5, { align: "right" });
+
+    doc.text("GST (5% Catering standard):", 114, finalY + 10);
+    doc.text(`Rs. ${totals.gst.toLocaleString('en-IN')}`, 192, finalY + 10, { align: "right" });
+
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(110, 16, 23);
+    doc.setFontSize(9);
+    doc.text("Grand Total:", 114, finalY + 16);
+    doc.text(`Rs. ${totals.grandTotal.toLocaleString('en-IN')}`, 192, finalY + 16, { align: "right" });
+
+    doc.setTextColor(140, 93, 19);
+    doc.setFontSize(8.5);
+    doc.text("Booking Advance (25%):", 114, finalY + 22);
+    doc.text(`Rs. ${totals.bookingAdvance.toLocaleString('en-IN')}`, 192, finalY + 22, { align: "right" });
+
+    // 7. Terms & Reservation Notes
+    finalY += 32;
+    doc.setFontSize(7.5);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(110, 16, 23);
+    doc.text("Terms & Reservation Policy:", 14, finalY);
+
+    doc.setFont("helvetica", "normal");
+    doc.setTextColor(70, 70, 70);
+    doc.setFontSize(6.8);
+    doc.text("1. Muhurtham dates & hall slot confirmed strictly upon receipt of 25% booking advance.", 14, finalY + 4);
+    doc.text("2. All preparations adhere to Dr. Arusuvai Nataraja Iyer standards with pure Agmark cow ghee & Kumbakonam spices.", 14, finalY + 7.5);
+    doc.text("3. Final guest count to be confirmed 7 days prior to the first event session.", 14, finalY + 11);
+
+    // 8. Signatures
+    doc.setFontSize(7.5);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(110, 16, 23);
+    doc.text("Authorized Signatory (Arusuvai Arasu)", 14, finalY + 22);
+    doc.text("Client Acceptance (Signature & Date)", 196, finalY + 22, { align: "right" });
+
+    // Save Vector PDF File
+    const fileName = `Arusuvai_Arasu_Proposal_${clientName.replace(/\s+/g, '_')}.pdf`;
+    doc.save(fileName);
+
+    // ALSO Open In-App Modal with full HTML preview so user sees it right on screen
+    openInAppProposalModal(quoteNo, clientName, weddingHall, weddingDates, tierName, totals);
+
+    showToast("✓ Proposal PDF Downloaded & Generated!");
+  } catch (pdfErr) {
+    console.error("PDF generation error:", pdfErr);
+    showToast("Opening proposal preview on screen...");
+    openInAppProposalModal(quoteNo, clientName, weddingHall, weddingDates, tierName, totals);
+  }
+}
+
+// Open In-App Modal Preview
+function openInAppProposalModal(quoteNo, clientName, weddingHall, weddingDates, tierName, totals) {
+  const modal = document.getElementById("proposal-modal");
+  const modalBody = document.getElementById("modal-proposal-body");
+  if (!modal || !modalBody) return;
+
+  let sessionRowsHtml = "";
+  MENU_DATA.sessions.forEach(s => {
+    if (s.active) {
+      const rate = Math.round(MENU_DATA.tiers[currentTier].basePerPlate * s.priceRatio);
+      const cost = rate * s.defaultPax;
+      const dishes = (s.menus[currentTier] || s.menus.royal).join(", ");
+      sessionRowsHtml += `
+        <div style="padding: 8px 0; border-bottom: 1px solid #eee;">
+          <div style="display:flex; justify-content:space-between;">
+            <strong style="color:#6e1017;">${s.name}</strong>
+            <strong>${formatINR(cost)}</strong>
+          </div>
+          <div style="font-size:0.75rem; color:#777;">${s.time} &bull; ${s.defaultPax} Guests @ ₹${rate}/pax</div>
+          <div style="font-size:0.72rem; color:#444; margin-top:3px;"><strong>Menu:</strong> ${dishes}</div>
+        </div>
       `;
-      pdfTableBody.appendChild(tr);
     }
   });
 
-  // PDF Totals
-  document.getElementById("pdf-subtotal").textContent = formatINR(totals.subtotal);
-  document.getElementById("pdf-gst").textContent = formatINR(totals.gst);
-  document.getElementById("pdf-grand-total").textContent = formatINR(totals.grandTotal);
-  document.getElementById("pdf-advance").textContent = formatINR(totals.bookingAdvance);
+  modalBody.innerHTML = `
+    <div style="text-align:center; padding-bottom:10px; border-bottom:2px solid #6e1017;">
+      <h2 style="color:#6e1017; font-size:1.3rem; margin:0;">ARUSUVAI ARASU CATERERS</h2>
+      <div style="font-size:0.75rem; color:#c99839; font-weight:bold;">Pioneers in Pure Veg Banquets Since 1952</div>
+      <div style="font-size:0.7rem; color:#666;">West Mambalam, Chennai &bull; +91 98410 24446</div>
+    </div>
 
-  showToast("Generating Official Arusuvai Banquet Proposal PDF...");
+    <div style="background:#fcf9f4; padding:8px 12px; border-radius:6px; margin:10px 0; font-size:0.78rem;">
+      <div style="display:flex; justify-content:space-between;"><span>Quote No: <strong>${quoteNo}</strong></span> <span>Date: <strong>${new Date().toLocaleDateString('en-IN')}</strong></span></div>
+      <div>Client: <strong>${clientName}</strong></div>
+      <div>Venue: <strong>${weddingHall}</strong></div>
+      <div>Dates: <strong>${weddingDates}</strong> &bull; Tier: <strong>${tierName}</strong></div>
+    </div>
 
-  // Force explicit A4 width during export so mobile view doesn't squash the PDF
-  const element = document.getElementById("pdf-template");
-  element.style.display = "block";
-  element.style.position = "fixed";
-  element.style.left = "0";
-  element.style.top = "0";
-  element.style.zIndex = "99999";
-  element.style.width = "794px";
+    <div style="margin:10px 0;">
+      ${sessionRowsHtml}
+    </div>
 
-  const opt = {
-    margin: [8, 8, 8, 8],
-    filename: `Arusuvai_Arasu_Banquet_Quote_${clientName.replace(/\s+/g, '_')}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, width: 794 },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  };
+    <div style="background:#fbf5ea; padding:10px; border-radius:8px; margin-top:10px; font-size:0.85rem;">
+      <div style="display:flex; justify-content:space-between;"><span>Catering Subtotal:</span> <strong>${formatINR(totals.subtotal)}</strong></div>
+      <div style="display:flex; justify-content:space-between; font-size:0.78rem; color:#777;"><span>GST (5%):</span> <span>${formatINR(totals.gst)}</span></div>
+      <div style="display:flex; justify-content:space-between; font-size:1.1rem; color:#6e1017; font-weight:bold; margin-top:4px; border-top:1px solid #ebd3a7; padding-top:4px;">
+        <span>Grand Total:</span> <span>${formatINR(totals.grandTotal)}</span>
+      </div>
+      <div style="display:flex; justify-content:space-between; color:#8c5d13; font-weight:bold; margin-top:3px;">
+        <span>Booking Advance (25%):</span> <span>${formatINR(totals.bookingAdvance)}</span>
+      </div>
+    </div>
 
-  html2pdf().set(opt).from(element).save().then(() => {
-    element.style.display = "none";
-    element.style.position = "static";
-    element.style.zIndex = "auto";
-    showToast("✓ Proposal PDF Downloaded Successfully!");
-  }).catch(err => {
-    console.error(err);
-    element.style.display = "none";
-    element.style.position = "static";
-    element.style.zIndex = "auto";
-    window.print();
-  });
+    <div style="font-size:0.7rem; color:#888; margin-top:10px; line-height:1.3;">
+      * Muhurtham dates confirmed upon 25% booking advance.<br>
+      * All items prepared with authentic Kumbakonam Agmark Cow Ghee standard.
+    </div>
+  `;
+
+  modal.classList.add("open");
+}
+
+function closeProposalModal() {
+  const modal = document.getElementById("proposal-modal");
+  if (modal) modal.classList.remove("open");
+}
+
+function downloadVectorPDF() {
+  generatePDF();
 }
 
 // Share via WhatsApp
@@ -540,25 +763,25 @@ function shareWhatsApp() {
   const clientName = document.getElementById("client-name").value || "Client";
   const weddingHall = document.getElementById("event-hall").value || "Chennai";
   const totals = calculateTotals();
-  const tierName = MENU_DATA.tiers[currentTier].name;
+  const tierName = MENU_DATA.tiers[currentTier].fullName;
 
-  let message = `*ARUSUVAI ARASU CATERERS - BANQUET QUOTATION SUMMARY*%0A`;
+  let message = `*ARUSUVAI ARASU CATERERS - BANQUET QUOTATION*%0A`;
   message += `_Pioneers in Pure Vegetarian Banquets Since 1952_%0A%0A`;
   message += `*Family:* ${encodeURIComponent(clientName)}%0A`;
   message += `*Venue:* ${encodeURIComponent(weddingHall)}%0A`;
-  message += `*Selected Package:* ${encodeURIComponent(tierName)}%0A%0A`;
+  message += `*Package:* ${encodeURIComponent(tierName)}%0A%0A`;
   message += `*CONFIRMED SESSIONS:*%0A`;
 
   MENU_DATA.sessions.forEach(s => {
     if (s.active) {
       const rate = Math.round(MENU_DATA.tiers[currentTier].basePerPlate * s.priceRatio);
-      message += `• ${encodeURIComponent(s.name)}: ${s.defaultPax} Guests (₹${rate}/pax)%0A`;
+      message += `• ${encodeURIComponent(s.name)}: ${s.defaultPax} Guests (@ ₹${rate})%0A`;
     }
   });
 
   message += `%0A*Grand Total (incl 5% GST):* ${encodeURIComponent(formatINR(totals.grandTotal))}%0A`;
-  message += `*Date Booking Advance (25%):* ${encodeURIComponent(formatINR(totals.bookingAdvance))}%0A%0A`;
-  message += `Generated instantly via Arusuvai Arasu Banquet Portal:%0Ahttps://a-generative-slice.github.io/arusuvaiarasu/`;
+  message += `*Booking Advance (25%):* ${encodeURIComponent(formatINR(totals.bookingAdvance))}%0A%0A`;
+  message += `Generated instantly via Arusuvai Arasu Portal:%0Ahttps://a-generative-slice.github.io/arusuvaiarasu/`;
 
   const waUrl = `https://wa.me/919841024446?text=${message}`;
   window.open(waUrl, '_blank');
@@ -572,7 +795,7 @@ function lockInventoryFromQuote() {
   showToast(`Slot for ${venue} reserved for ${clientName}!`);
   setTimeout(() => {
     switchView('inventory');
-  }, 1000);
+  }, 900);
 }
 
 // ============================================================================
@@ -623,20 +846,20 @@ function renderHallSlots() {
         <div class="hall-location"><i class="fa-solid fa-location-dot"></i> ${hall.location}</div>
         
         <div class="hall-meta-row">
-          <span>Banquet Capacity:</span>
+          <span>Capacity:</span>
           <strong>${hall.capacity}</strong>
         </div>
         <div class="hall-meta-row">
-          <span>Assigned Catering Team:</span>
+          <span>Catering Team:</span>
           <strong>${hall.teamAllocated}</strong>
         </div>
         <div class="hall-meta-row">
-          <span>Booking Family:</span>
+          <span>Status:</span>
           <strong style="color: ${status === 'locked' ? '#c0392b' : '#27ae60'};">${status === 'locked' ? hall.bookedFamily : (status === 'tentative' ? 'Inquiry in Progress' : 'Open for Booking')}</strong>
         </div>
 
         <button class="hall-action-btn" onclick="handleHallAction(${idx}, '${status}')">
-          ${status === 'available' ? '<i class="fa-solid fa-calendar-check"></i> Book Catering Slot' : (status === 'tentative' ? '<i class="fa-solid fa-lock"></i> Lock 25% Advance' : '<i class="fa-solid fa-file-invoice"></i> View Locked Manifest')}
+          ${status === 'available' ? '<i class="fa-solid fa-calendar-check"></i> Book Catering Slot' : (status === 'tentative' ? '<i class="fa-solid fa-lock"></i> Lock 25% Advance' : '<i class="fa-solid fa-file-invoice"></i> View Manifest')}
         </button>
       </div>
     `;
